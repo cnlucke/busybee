@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Task } from "./types";
+import type { Task } from "./types";
 
 interface TaskFormProps {
     onAddTask: (task: Task) => void;
@@ -29,10 +29,19 @@ function TaskForm({ onAddTask }: TaskFormProps) {
                 <input
                     id="titleInput"
                     type="text"
+                    placeholder="What needs to be done?"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
+                    style={{
+                        border: '1px solid #ccc',
+                        borderRadius: '4px',
+                        padding: '4px 8px',
+                    }}
                 />
             </div>
+            <p style={{ margin: '4px 0 0', fontSize: '0.8rem', color: '#888' }}>
+                Type a task above, then click Add Task to save it.
+            </p>
             <br />
             <div>
                 <label htmlFor="doneInput">Done: </label>
@@ -44,7 +53,20 @@ function TaskForm({ onAddTask }: TaskFormProps) {
                 />
             </div>
             <br />
-            <button type="submit">Add Task</button>
+            <button
+                type="submit"
+                style={{
+                    padding: '8px 16px',
+                    background: '#2563eb',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    fontSize: '1rem',
+                }}
+            >
+                Add Task
+            </button>
         </form>
     );
 }

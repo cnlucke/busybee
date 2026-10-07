@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Task } from './types';
+import type {Task} from './types';
 import TaskForm from './TaskForm';
 import TaskItem from './TaskItem';
 
 export default function TaskList() {
-    const [tasks, setTasks] = useState<Task[]>([
+    const [tasks, setTasks] = useState<Task[]>(() => [
         { id: '1', title: 'Learn React hooks', done: false, createdAt: Date.now() },
         { id: '2', title: 'Build a task list component', done: true, createdAt: Date.now() },
     ]);
