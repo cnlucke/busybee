@@ -23,6 +23,12 @@ export default function TaskList() {
         setTasks(tasks.filter((task) => task.id !== id));
     };
 
+    const handleEditTask = (id: string, title: string) => {
+        setTasks(tasks.map((task) =>
+            task.id === id ? { ...task, title } : task
+        ));
+    };
+
     return (
         <div style={{ maxWidth: '400px', margin: '20px auto', fontFamily: 'sans-serif' }}>
             <h2>Task List</h2>
@@ -34,6 +40,7 @@ export default function TaskList() {
                         task={task}
                         onToggle={handleToggleComplete}
                         onDelete={handleDeleteTask}
+                        onEdit={handleEditTask}
                     />
                 ))}
             </ul>
