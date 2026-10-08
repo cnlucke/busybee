@@ -76,12 +76,12 @@ export default function TaskItem({ task, onToggle, onDelete, onEdit, onAddSubtas
                             className="flex-1 min-w-0 border border-[#ccc] rounded px-1.5 py-0.5 [font:inherit]"
                         />
                     ) : exactUrl ? (
-                        <LinkPreview url={task.title} done={task.done} onTitleClick={startEditing} />
+                        <LinkPreview url={task.title} done={task.done} onEditClick={startEditing} />
                     ) : embeddedUrl ? (
                         <LinkPreview
                             url={embeddedUrl.url.toString()}
                             done={task.done}
-                            onTitleClick={startEditing}
+                            onEditClick={startEditing}
                             before={embeddedUrl.before}
                             after={embeddedUrl.after}
                         />

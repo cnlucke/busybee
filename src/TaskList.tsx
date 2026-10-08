@@ -38,7 +38,7 @@ export default function TaskList() {
     };
 
     return (
-        <div className="max-w-[800px] mx-auto my-5 font-sans">
+        <div className="w-fit max-w-full mx-auto my-5 font-sans">
             <h2>Task List</h2>
             <TaskForm onAddTask={handleAddTask} />
             <ul className="list-none p-0">

@@ -11,7 +11,7 @@ interface PreviewData {
 interface LinkPreviewProps {
     url: string;
     done: boolean;
-    onTitleClick: () => void;
+    onEditClick: () => void;
     /** Text surrounding the URL in the original task title, kept around the fetched page title. */
     before?: string;
     after?: string;
@@ -19,7 +19,7 @@ interface LinkPreviewProps {
 
 const previewCache = new Map<string, PreviewData | null>();
 
-export default function LinkPreview({ url, done, onTitleClick, before, after }: LinkPreviewProps) {
+export default function LinkPreview({ url, done, onEditClick, before, after }: LinkPreviewProps) {
     const [fetchedPreview, setFetchedPreview] = useState<PreviewData | null>(null);
     const [failedImageUrl, setFailedImageUrl] = useState<string | null>(null);
 
@@ -73,11 +73,31 @@ export default function LinkPreview({ url, done, onTitleClick, before, after }: 
                 )}
             </a>
             <span
-                onClick={onTitleClick}
-                title={url}
+                onClick={onEditClick}
                 className={`${done ? 'line-through text-[#888]' : 'text-black'} cursor-text flex-1 min-w-0 wrap-break-word`}
             >
-                {label}
+                {before}
+                <a
+                    href={url}
+                    target="_blank"
+                    rel="noreferrer"
+                    title={url}
+                    onClick={(e) => e.stopPropagation()}
+                    className="cursor-pointer hover:underline"
+                >
+                    {titleText}
+                </a>
+                {after}
+                <button
+                    type="button"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onEditClick();
+                    }}
+                    className="ml-2 bg-transparent border-none text-blue-600 cursor-pointer text-xs p-0"
+                >
+                    Edit
+                </button>
             </span>
         </span>
     );
