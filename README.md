@@ -1,75 +1,50 @@
-# React + TypeScript + Vite
+# 🐝 Busybee
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small task list app built with React, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Add, complete, and delete tasks** with a simple inline form.
+- **Click-to-edit** — click any task's title to edit it in place; clicking away (or pressing Enter) saves the change, Escape cancels.
+- **Nested subtasks** — add subtasks under any task via the "+ Add subtask" link, nested to any depth, each with its own checkbox, edit, and delete.
+- **Link previews** — a task title that is (or contains) a URL automatically renders a thumbnail and page title pulled from the linked page, instead of the raw link text.
 
-## React Compiler
+## Getting started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Requires Node.js **20.19+** or **22.12+**.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Then open the URL Vite prints (default [http://localhost:5173](http://localhost:5173)).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Scripts
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Command           | Description                              |
+|-------------------|-------------------------------------------|
+| `npm run dev`     | Start the dev server with hot reload      |
+| `npm run build`   | Type-check and build for production       |
+| `npm run preview` | Preview the production build locally      |
+| `npm run lint`    | Run ESLint                                |
+
+## Project structure
 
 ```
+src/
+  App.tsx          # Entry point, renders TaskList
+  TaskList.tsx      # Owns task state, wires up add/toggle/edit/delete
+  TaskForm.tsx       # Form for adding a new top-level task
+  TaskItem.tsx       # Renders one task row, its subtasks, and the edit UI
+  LinkPreview.tsx    # Thumbnail + title card for a task that's a link
+  taskTree.ts        # Recursive helpers for updating the task tree by id
+  url.ts             # URL detection/parsing helpers
+server/
+  linkPreviewPlugin.ts  # Vite middleware that fetches a page's og:image/title
+```
+
+## Notes
+
+- Tasks live in memory only (React state) — the list resets on page reload. There's no backend or persistence layer.
+- Link previews are served by a Vite dev/preview server middleware (`server/linkPreviewPlugin.ts`), which fetches the target page server-side to read its Open Graph metadata. This only works while running `npm run dev` or `npm run preview` — a static deployment of `npm run build`'s output alone won't have anywhere to serve `/api/link-preview` from.
