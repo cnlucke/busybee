@@ -17,6 +17,7 @@ function TaskForm({ onAddTask }: TaskFormProps) {
             title: title.trim(),
             done,
             createdAt: Date.now(),
+            subtasks: [],
         });
         setTitle("");
         setDone(false);
@@ -24,7 +25,7 @@ function TaskForm({ onAddTask }: TaskFormProps) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 <label htmlFor="titleInput">Title: </label>
                 <input
                     id="titleInput"
@@ -38,9 +39,23 @@ function TaskForm({ onAddTask }: TaskFormProps) {
                         padding: '4px 8px',
                     }}
                 />
+                <button
+                    type="submit"
+                    style={{
+                        padding: '4px 14px',
+                        background: '#2563eb',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '9999px',
+                        cursor: 'pointer',
+                        fontSize: '0.85rem',
+                    }}
+                >
+                    Add
+                </button>
             </div>
             <p style={{ margin: '4px 0 0', fontSize: '0.8rem', color: '#888' }}>
-                Type a task above, then click Add Task to save it.
+                Type a task above, then click Add to save it.
             </p>
             <br />
             <div>
@@ -52,21 +67,6 @@ function TaskForm({ onAddTask }: TaskFormProps) {
                     onChange={(e) => setDone(e.target.checked)}
                 />
             </div>
-            <br />
-            <button
-                type="submit"
-                style={{
-                    padding: '8px 16px',
-                    background: '#2563eb',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: '4px',
-                    cursor: 'pointer',
-                    fontSize: '1rem',
-                }}
-            >
-                Add Task
-            </button>
         </form>
     );
 }

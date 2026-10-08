@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import type {Task} from './types';
+import type { Task } from './types';
 import TaskForm from './TaskForm';
 import TaskItem from './TaskItem';
+import { addSubtaskToTree, removeTaskFromTree, updateTaskInTree } from './taskTree';
 
 export default function TaskList() {
     const [tasks, setTasks] = useState<Task[]>(() => [
-        { id: '1', title: 'Learn React hooks', done: false, createdAt: Date.now() },
-        { id: '2', title: 'Build a task list component', done: true, createdAt: Date.now() },
+        { id: '1', title: 'Learn React hooks', done: false, createdAt: Date.now(), subtasks: [] },
+        { id: '2', title: 'Build a task list component', done: true, createdAt: Date.now(), subtasks: [] },
     ]);
 
     const handleAddTask = (task: Task) => {
@@ -14,19 +15,26 @@ export default function TaskList() {
     };
 
     const handleToggleComplete = (id: string) => {
-        setTasks(tasks.map((task) =>
-            task.id === id ? { ...task, done: !task.done } : task
-        ));
+        setTasks(updateTaskInTree(tasks, id, (task) => ({ ...task, done: !task.done })));
     };
 
     const handleDeleteTask = (id: string) => {
-        setTasks(tasks.filter((task) => task.id !== id));
+        setTasks(removeTaskFromTree(tasks, id));
     };
 
     const handleEditTask = (id: string, title: string) => {
-        setTasks(tasks.map((task) =>
-            task.id === id ? { ...task, title } : task
-        ));
+        setTasks(updateTaskInTree(tasks, id, (task) => ({ ...task, title })));
+    };
+
+    const handleAddSubtask = (parentId: string, title: string) => {
+        const subtask: Task = {
+            id: String(Date.now()),
+            title,
+            done: false,
+            createdAt: Date.now(),
+            subtasks: [],
+        };
+        setTasks(addSubtaskToTree(tasks, parentId, subtask));
     };
 
     return (
@@ -41,6 +49,7 @@ export default function TaskList() {
                         onToggle={handleToggleComplete}
                         onDelete={handleDeleteTask}
                         onEdit={handleEditTask}
+                        onAddSubtask={handleAddSubtask}
                     />
                 ))}
             </ul>

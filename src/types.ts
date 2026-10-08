@@ -3,4 +3,5 @@ export interface Task {
     title: string
     done: boolean
     createdAt: number
+    subtasks: Task[]
 }
