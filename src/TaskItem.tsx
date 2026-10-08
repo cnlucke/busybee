@@ -53,14 +53,14 @@ export default function TaskItem({ task, onToggle, onDelete, onEdit, onAddSubtas
     const embeddedUrl = exactUrl ? null : findEmbeddedUrl(task.title);
 
     return (
-        <li style={{ borderBottom: '1px solid #ccc', padding: '8px 0' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px', padding: '0 8px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1, minWidth: 0 }}>
+        <li className="border-b border-[#ccc] py-2">
+            <div className="flex justify-between items-center gap-2.5 px-2">
+                <div className="flex items-center gap-2 flex-1 min-w-0">
                     <input
                         type="checkbox"
                         checked={task.done}
                         onChange={() => onToggle(task.id)}
-                        style={{ cursor: 'pointer' }}
+                        className="cursor-pointer"
                     />
                     {isEditing ? (
                         <input
@@ -73,14 +73,7 @@ export default function TaskItem({ task, onToggle, onDelete, onEdit, onAddSubtas
                                 if (e.key === 'Enter') e.currentTarget.blur();
                                 if (e.key === 'Escape') cancelEdit();
                             }}
-                            style={{
-                                flex: 1,
-                                minWidth: 0,
-                                border: '1px solid #ccc',
-                                borderRadius: '4px',
-                                padding: '2px 6px',
-                                font: 'inherit',
-                            }}
+                            className="flex-1 min-w-0 border border-[#ccc] rounded px-1.5 py-0.5 [font:inherit]"
                         />
                     ) : exactUrl ? (
                         <LinkPreview url={task.title} done={task.done} onTitleClick={startEditing} />
@@ -95,33 +88,26 @@ export default function TaskItem({ task, onToggle, onDelete, onEdit, onAddSubtas
                     ) : (
                         <span
                             onClick={startEditing}
-                            style={{
-                                textDecoration: task.done ? 'line-through' : 'none',
-                                color: task.done ? '#888' : '#000',
-                                cursor: 'text',
-                                flex: 1,
-                                minWidth: 0,
-                                overflowWrap: 'break-word',
-                            }}
+                            className={`${task.done ? 'line-through text-[#888]' : 'text-black'} cursor-text flex-1 min-w-0 wrap-break-word`}
                         >
                             {task.title}
                         </span>
                     )}
                 </div>
-                <span style={{ fontSize: '0.75rem', color: '#999' }}>
+                <span className="text-xs text-[#999]">
                     {new Date(task.createdAt).toLocaleDateString()}
                 </span>
                 <button
                     onClick={() => onDelete(task.id)}
-                    style={{ color: 'red', border: 'none', background: 'none', cursor: 'pointer' }}
+                    className="text-[red] border-none bg-transparent cursor-pointer"
                 >
                     Delete
                 </button>
             </div>
 
-            <div style={{ paddingLeft: '32px', marginTop: '4px' }}>
+            <div className="pl-8 mt-1">
                 {isAddingSubtask ? (
-                    <form onSubmit={submitSubtask} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <form onSubmit={submitSubtask} className="flex items-center gap-1.5">
                         <input
                             type="text"
                             autoFocus
@@ -131,33 +117,18 @@ export default function TaskItem({ task, onToggle, onDelete, onEdit, onAddSubtas
                             onKeyDown={(e) => {
                                 if (e.key === 'Escape') cancelAddSubtask();
                             }}
-                            style={{
-                                flex: 1,
-                                minWidth: 0,
-                                border: '1px solid #ccc',
-                                borderRadius: '4px',
-                                padding: '2px 6px',
-                                fontSize: '0.85rem',
-                            }}
+                            className="flex-1 min-w-0 border border-[#ccc] rounded px-1.5 py-0.5 text-[0.85rem]"
                         />
                         <button
                             type="submit"
-                            style={{
-                                padding: '2px 10px',
-                                background: '#2563eb',
-                                color: '#fff',
-                                border: 'none',
-                                borderRadius: '9999px',
-                                cursor: 'pointer',
-                                fontSize: '0.75rem',
-                            }}
+                            className="px-2.5 py-0.5 bg-blue-600 text-white border-none rounded-full cursor-pointer text-xs"
                         >
                             Add
                         </button>
                         <button
                             type="button"
                             onClick={cancelAddSubtask}
-                            style={{ background: 'none', border: 'none', color: '#999', cursor: 'pointer', fontSize: '0.75rem' }}
+                            className="bg-transparent border-none text-[#999] cursor-pointer text-xs"
                         >
                             Cancel
                         </button>
@@ -165,7 +136,7 @@ export default function TaskItem({ task, onToggle, onDelete, onEdit, onAddSubtas
                 ) : (
                     <button
                         onClick={() => setIsAddingSubtask(true)}
-                        style={{ background: 'none', border: 'none', color: '#2563eb', cursor: 'pointer', fontSize: '0.75rem', padding: 0 }}
+                        className="bg-transparent border-none text-blue-600 cursor-pointer text-xs p-0"
                     >
                         + Add subtask
                     </button>
@@ -173,7 +144,7 @@ export default function TaskItem({ task, onToggle, onDelete, onEdit, onAddSubtas
             </div>
 
             {task.subtasks.length > 0 && (
-                <ul style={{ listStyleType: 'none', padding: 0, margin: '4px 0 0', paddingLeft: '32px' }}>
+                <ul className="list-none mt-1 mb-0 mx-0 pr-0 py-0 pl-8">
                     {task.subtasks.map((subtask) => (
                         <TaskItem
                             key={subtask.id}

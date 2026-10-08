@@ -38,10 +38,10 @@ export default function TaskList() {
     };
 
     return (
-        <div style={{ maxWidth: '400px', margin: '20px auto', fontFamily: 'sans-serif' }}>
+        <div className="max-w-[800px] mx-auto my-5 font-sans">
             <h2>Task List</h2>
             <TaskForm onAddTask={handleAddTask} />
-            <ul style={{ listStyleType: 'none', padding: 0 }}>
+            <ul className="list-none p-0">
                 {tasks.map((task) => (
                     <TaskItem
                         key={task.id}
@@ -53,7 +53,7 @@ export default function TaskList() {
                     />
                 ))}
             </ul>
-            {tasks.length === 0 && <p style={{ color: '#666' }}>No tasks left!</p>}
+            {tasks.length === 0 && <p className="text-[#666]">No tasks left!</p>}
         </div>
     );
 }

@@ -25,7 +25,7 @@ function TaskForm({ onAddTask }: TaskFormProps) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div className="flex items-center gap-2">
                 <label htmlFor="titleInput">Title: </label>
                 <input
                     id="titleInput"
@@ -33,28 +33,16 @@ function TaskForm({ onAddTask }: TaskFormProps) {
                     placeholder="What needs to be done?"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    style={{
-                        border: '1px solid #ccc',
-                        borderRadius: '4px',
-                        padding: '4px 8px',
-                    }}
+                    className="border border-[#ccc] rounded px-2 py-1"
                 />
                 <button
                     type="submit"
-                    style={{
-                        padding: '4px 14px',
-                        background: '#2563eb',
-                        color: '#fff',
-                        border: 'none',
-                        borderRadius: '9999px',
-                        cursor: 'pointer',
-                        fontSize: '0.85rem',
-                    }}
+                    className="px-3.5 py-1 bg-blue-600 text-white border-none rounded-full cursor-pointer text-[0.85rem]"
                 >
                     Add
                 </button>
             </div>
-            <p style={{ margin: '4px 0 0', fontSize: '0.8rem', color: '#888' }}>
+            <p className="mt-1 mb-0 text-[0.8rem] text-[#888]">
                 Type a task above, then click Add to save it.
             </p>
             <br />

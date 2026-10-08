@@ -51,45 +51,23 @@ export default function LinkPreview({ url, done, onTitleClick, before, after }: 
     const showImage = preview?.image && !imageFailed;
 
     return (
-        <span style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', flex: 1, minWidth: 0 }}>
+        <span className="flex items-start gap-2 flex-1 min-w-0">
             <a
                 href={url}
                 target="_blank"
                 rel="noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                style={{ flexShrink: 0, lineHeight: 0 }}
+                className="shrink-0 leading-[0]"
             >
                 {showImage ? (
                     <img
                         src={preview!.image}
                         alt={label}
                         onError={() => setFailedImageUrl(url)}
-                        style={{
-                            width: '48px',
-                            height: '32px',
-                            objectFit: 'cover',
-                            borderRadius: '4px',
-                            border: '1px solid #ddd',
-                            opacity: done ? 0.5 : 1,
-                        }}
+                        className={`w-12 h-8 object-cover rounded border border-[#ddd] ${done ? 'opacity-50' : ''}`}
                     />
                 ) : (
-                    <span
-                        style={{
-                            width: '48px',
-                            height: '32px',
-                            borderRadius: '4px',
-                            border: '1px solid #ddd',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontSize: '0.6rem',
-                            color: '#999',
-                            textAlign: 'center',
-                            padding: '0 2px',
-                            overflow: 'hidden',
-                        }}
-                    >
+                    <span className="w-12 h-8 rounded border border-[#ddd] flex items-center justify-center text-[0.6rem] text-[#999] text-center px-0.5 overflow-hidden">
                         {hostname}
                     </span>
                 )}
@@ -97,14 +75,7 @@ export default function LinkPreview({ url, done, onTitleClick, before, after }: 
             <span
                 onClick={onTitleClick}
                 title={url}
-                style={{
-                    textDecoration: done ? 'line-through' : 'none',
-                    color: done ? '#888' : '#000',
-                    cursor: 'text',
-                    flex: 1,
-                    minWidth: 0,
-                    overflowWrap: 'break-word',
-                }}
+                className={`${done ? 'line-through text-[#888]' : 'text-black'} cursor-text flex-1 min-w-0 wrap-break-word`}
             >
                 {label}
             </span>
