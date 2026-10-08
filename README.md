@@ -1,13 +1,13 @@
 # 🐝 Busybee
 
-A small task list app built with React, TypeScript, and Vite.
+A small task list app built with React, TypeScript, Vite, and Tailwind CSS.
 
 ## Features
 
 - **Add, complete, and delete tasks** with a simple inline form.
-- **Click-to-edit** — click any task's title to edit it in place; clicking away (or pressing Enter) saves the change, Escape cancels.
+- **Click-to-edit** — click a task's title to edit it in place (for link tasks, use the "Edit" button); clicking away (or pressing Enter) saves the change, Escape cancels.
 - **Nested subtasks** — add subtasks under any task via the "+ Add subtask" link, nested to any depth, each with its own checkbox, edit, and delete.
-- **Link previews** — a task title that is (or contains) a URL automatically renders a thumbnail and page title pulled from the linked page, instead of the raw link text.
+- **Link previews** — a task title that is (or contains) a URL automatically renders a thumbnail and page title pulled from the linked page, instead of the raw link text. Clicking the thumbnail or page title opens the link in a new tab.
 
 ## Getting started
 
